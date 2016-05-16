@@ -102,7 +102,7 @@ const tempStr = fs.readFileSync(path.join(__dirname,'template.html'),'utf8');
 // const URL = "https://www.npmjs.com/search?q=nodejs";   
 // 上面的URL里面结果太多 ，有点悲剧... 
 
-const URL = "https://www.npmjs.com/search?q=nodeapp";  // 这个URL里面有25条记录，还好。
+const URL = "https://www.npmjs.com/search?q=nodeapp";  // 这个URL里面有暂时25条记录，所以用这个测试
 
 getPackageList(URL,(err,packageList) => {
     if(err) {
@@ -115,7 +115,7 @@ getPackageList(URL,(err,packageList) => {
             if(err) {
                 return console.log(err);
             }
-            let filePath = path.join(__dirname,'pages',item.name+'.html');
+            let filePath = path.join(__dirname,'data',item.name+'.html');
             
             // 写入文件中
             let htmlStr = tempStr.replace('{{content}}',content).replace('{{name}}',item.name);
