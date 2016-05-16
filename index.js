@@ -115,7 +115,7 @@ getPackageList(URL,(err,packageList) => {
             if(err) {
                 return console.log(err);
             }
-            let filePath = path.join(__dirname,'data',item.name+'.html');
+            let filePath = path.join(__dirname,'pages',item.name+'.html');
             
             // 写入文件中
             let htmlStr = tempStr.replace('{{content}}',content).replace('{{name}}',item.name);
