@@ -96,12 +96,7 @@ function getDetailByUrl(url,callback) {
 
 // 先拿到字符模板
 const tempStr = fs.readFileSync(path.join(__dirname,'template.html'),'utf8');
-
-// 根链接
-
-// const URL = "https://www.npmjs.com/search?q=nodejs";   
-// 上面的URL里面结果太多 ... 
-
+// 设置需要用到的URL
 const URL = "https://www.npmjs.com/search?q=nodeapp";  // 这个URL里面有暂时25条记录，所以用这个测试
 
 getPackageList(URL,(err,packageList) => {
@@ -115,8 +110,13 @@ getPackageList(URL,(err,packageList) => {
             if(err) {
                 return console.log(err);
             }
-            let filePath = path.join(__dirname,'pages',item.name+'.html');
-            
+            // 文件夹路径
+            let realPath = path.join(__dirname,'pages');
+            if(!fs.existsSync(realPath)){
+                fs.mkdirSync(realPath);
+            }
+            // 设置网页路径
+            let filePath = path.join(realPath,item.name+'.html');
             // 写入文件中
             let htmlStr = tempStr.replace('{{content}}',content).replace('{{name}}',item.name);
             fs.writeFile(filePath,htmlStr,(err) =>{
