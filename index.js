@@ -110,21 +110,26 @@ getPackageList(URL,(err,packageList) => {
             if(err) {
                 return console.log(err);
             }
-            // 文件夹路径
+            // 设置保存文件夹的路径
             let realPath = path.join(__dirname,'pages');
-            if(!fs.existsSync(realPath)){
-                fs.mkdirSync(realPath);
-            }
-            // 设置网页路径
-            let filePath = path.join(realPath,item.name+'.html');
-            // 写入文件中
-            let htmlStr = tempStr.replace('{{content}}',content).replace('{{name}}',item.name);
-            fs.writeFile(filePath,htmlStr,(err) =>{
+            fs.mkdir(realPath,(err) =>{
                 if(err) {
-                    return console.log(`file : ${filePath} 保存失败！`);
+                    // 如果文件夹同名，不用去处理，程序继续走
                 }
-                console.log(`file : ${filePath} 保存成功！`);
+                // 设置网页路径
+                let filePath = path.join(realPath , item.name+'.html');
+                // 写入文件中
+                let htmlStr = tempStr.replace('{{content}}',content).replace('{{name}}',item.name);
+                fs.writeFile(filePath,htmlStr,(err) =>{
+                    if(err) {
+                        return console.log(`file : ${filePath} 保存失败！`);
+                    }
+                    console.log(`file : ${filePath} 保存成功！`);
+                })
+
             })
+
+                
         })
     })
 })
